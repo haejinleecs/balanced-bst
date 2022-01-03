@@ -1,5 +1,9 @@
 /**
- * Standard Binary Search Tree
+ * Binary Search Tree
+ * Properties: 
+ * 	The left subtree of a node contains only nodes with values lesser than the node’s value. 
+ * 	The right subtree of a node contains only nodes with values greater than the node’s value. 
+ * 	The left and right subtree each must also be a binary search tree.
  */
 
 import java.util.Iterator;
@@ -25,8 +29,7 @@ public class BinarySearchTree<T extends Comparable<T>> implements BSTInterface<T
 
 	@Override
 	public boolean contains(T element) {
-		
-		return false;
+		return (get(element) != null); // returns true if get() finds elements, false if not
 	}
 
 	@Override
