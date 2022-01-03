@@ -1,3 +1,10 @@
+/**
+ * An element in a BST
+ * 
+ * @author haejinlee
+ *
+ * @param <T> 
+ */
 public class BSTNode<T>{
 	private T data;
 	private BSTNode<T> left;
