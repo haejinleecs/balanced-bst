@@ -19,20 +19,24 @@ public abstract class BinarySearchTree<T extends Comparable<T>> {
 	 * inserts data into this BST
 	 * @param node
 	 * @return true if data is inserted; false if data is a duplicate
+	 * @throws NullPointerException if data is null
 	 */
 	public abstract boolean insert(T data);
 	
 	/**
 	 * @param node
 	 * @return true if deletion is successful, that is if the tree contains this node and it's removed successfully
+	 * @throws NullPointerException if data is null
 	 */
-	public abstract boolean delete(BSTNode<T> node);
+	public abstract boolean delete(T data);
 	
 	/**
 	 * @param node
 	 * @return true if node is contained in this tree
+	 * @throws NullPointerException if data is null
 	 */
 	public boolean search(T data){
+		if(data == null) throw new NullPointerException();
 		return searchHelper(root, data);
 	}
 	private boolean searchHelper(BSTNode<T> cur, T data) {

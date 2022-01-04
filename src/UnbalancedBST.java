@@ -18,7 +18,7 @@ public class UnbalancedBST<T extends Comparable<T>> extends BinarySearchTree<T>{
 		insertHelper(root, data); // call helper method
 		return true;
 	}
-	protected void insertHelper(BSTNode<T> cur, T data){ // helper method for insert
+	private void insertHelper(BSTNode<T> cur, T data){ // helper method for insert
 		int result = data.compareTo(cur.getData()); // compare data value to cur's value
 		if(result > 0) { // data value is greater than cur's value
 			if(cur.getRight() == null) // found correct spot
@@ -31,8 +31,9 @@ public class UnbalancedBST<T extends Comparable<T>> extends BinarySearchTree<T>{
 			else insertHelper(cur.getLeft(), data); // recursive move into left child
 		}
 	}
+
 	@Override
-	public boolean delete(BSTNode<T> node) {
+	public boolean delete(T data) {
 		// TODO Auto-generated method stub
 		return false;
 	}
