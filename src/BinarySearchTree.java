@@ -99,24 +99,30 @@ public abstract class BinarySearchTree<T extends Comparable<T>> {
 	/**
 	 * @param parent
 	 * @return left child of parent, or null if there is no left child
+	 * @throws NullPointerException if parent is null
 	 */
 	public BSTNode<T> leftChild(BSTNode<T> parent){
+		if(parent == null) throw new NullPointerException();
 		return parent.getLeft();
 	}
 	
 	/**
 	 * @param parent
 	 * @return right child of parent, or null if there is no right child
+	 * @throws NullPointerException if parent is null
 	 */
 	public BSTNode<T> rightChild(BSTNode<T> parent){
+		if(parent == null) throw new NullPointerException();
 		return parent.getRight();
 	}
 	
 	/**
 	 * @param child
 	 * @return child's parent node
+	 * @throws NullPointerException if child is null
 	 */
 	public BSTNode<T> predecessor(BSTNode<T> child){
+		if(child == null) throw new NullPointerException();
 		return child.getParent();
 	}
 	
