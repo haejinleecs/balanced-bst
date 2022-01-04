@@ -1,11 +1,15 @@
 /**
- * BSTInterface
+ * Binary Search Tree abstract class
  * 
  * @author haejinlee
  *
  * @param <T>
  */
+
+// use for traversal methods
 import java.util.Iterator;
+import java.util.LinkedList; 
+import java.util.Queue;
 
 public abstract class BinarySearchTree<T extends Comparable<T>> {
 	
@@ -31,7 +35,7 @@ public abstract class BinarySearchTree<T extends Comparable<T>> {
 	public boolean search(T data){
 		return searchHelper(root, data);
 	}
-	protected boolean searchHelper(BSTNode<T> cur, T data) {
+	private boolean searchHelper(BSTNode<T> cur, T data) {
 		int result = data.compareTo(cur.getData()); // compare data value to cur's value
 		if(result > 0) // data value > cur's value
 			return searchHelper(cur.getRight(), data);
@@ -44,24 +48,48 @@ public abstract class BinarySearchTree<T extends Comparable<T>> {
 	 * @return in-order traversal of tree
 	 */
 	public Iterator<T> inorder(){
-		//TODO
-		return null;
+		Queue<T> queue = new LinkedList<T>(); // create a queue using linked list
+		inorderHelper(queue, root); // call helper method
+		return queue.iterator(); // return in-order iterator
+	}
+	private void inorderHelper(Queue<T> queue, BSTNode<T> cur) { // in-order helper method
+		if(cur != null) {
+			inorderHelper(queue, cur.getLeft());
+			queue.add(cur.getData());
+			inorderHelper(queue, cur.getRight());
+		}
 	}
 	
 	/**
 	 * @return pre-order traversal of tree
 	 */
 	public Iterator<T> preorder(){
-		//TODO
-		return null;
+		Queue<T> queue = new LinkedList<T>(); // create a queue using linked list
+		preorderHelper(queue, root); // call helper method
+		return queue.iterator(); // return pre-order iterator
+	}
+	private void preorderHelper(Queue<T> queue, BSTNode<T> cur) { // pre-order helper method
+		if(cur != null) { 
+			queue.add(cur.getData());
+			preorderHelper(queue, cur.getLeft());
+			preorderHelper(queue, cur.getRight());
+		}
 	}
 	
 	/**
 	 * @return post-order traversal of tree
 	 */
 	public Iterator<T> postorder(){
-		//TODO
-		return null;
+		Queue<T> queue = new LinkedList<T>(); // create a queue using linked list
+		postorderHelper(queue, root); // call helper method
+		return queue.iterator(); // return post-order iterator
+	}
+	private void postorderHelper(Queue<T> queue, BSTNode<T> cur) { // post-order helper method
+		if(cur != null) { 
+			postorderHelper(queue, cur.getLeft());
+			postorderHelper(queue, cur.getRight());
+			queue.add(cur.getData());
+		}
 	}
 	
 	/**
