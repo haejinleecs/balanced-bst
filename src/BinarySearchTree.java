@@ -1,114 +1,94 @@
 /**
- * Binary Search Tree
- * Properties: 
- * 	The left subtree of a node contains only nodes with values lesser than the node’s value. 
- * 	The right subtree of a node contains only nodes with values greater than the node’s value. 
- * 	The left and right subtree each must also be a binary search tree.
+ * BSTInterface
+ * 
+ * @author haejinlee
+ *
+ * @param <T>
  */
-
 import java.util.Iterator;
 
-public class BinarySearchTree<T extends Comparable<T>> implements BSTInterface<T> {
+public abstract class BinarySearchTree<T extends Comparable<T>> {
 	
-	protected BSTNode<T> root;
-	private int size;
+	BSTNode<T> root;
 	
-	@Override
-	public boolean isEmpty() {
-		return (root == null);
+	/**
+	 * @param value
+	 * @return new tree with given root value
+	 */
+	public BSTNode<T> create(T value){
+		return new BSTNode<T>(value, null, null);
 	}
-
-	@Override
-	public int size() {
-		return recurSize(root);
-	}
-	protected int recurSize(BSTNode<T> root) {
-		if(root == null) return 0; // returns size 0 if the current node is null and thus 0 for empty trees
-		else return 1 + recurSize(root.getLeft()) + recurSize(root.getRight()); // otherwise counts 1 for current node and adds size of the left and right subtrees
-	}
-
-	@Override
-	public boolean contains(T element) {
-		return (get(element) != null); // returns true if get() finds elements, false if not
-	}
-
-	@Override
-	public boolean remove(T element) {
-		// TODO Auto-generated method stub
+	
+	/**
+	 * @param node
+	 * @return root of the new tree with inserted node
+	 */
+	public abstract BSTNode<T> insert(BSTNode<T> node);
+	
+	/**
+	 * @param node
+	 * @return true if deletion is successful, that is if the tree contains this node and it's removed successfully
+	 */
+	public abstract boolean delete(BSTNode<T> node);
+	
+	/**
+	 * @param node
+	 * @return true if node is contained in this tree
+	 */
+	public boolean search(BSTNode<T> node){
+		//TODO
 		return false;
 	}
-
-	@Override
-	public T get(T element) {
-		// TODO Auto-generated method stub
+	
+	/**
+	 * @return in-order traversal of tree
+	 */
+	public Iterator<T> inorder(){
+		//TODO
 		return null;
 	}
-
-	@Override
-	public void add(T element) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public T getMinimum() {
-		// TODO Auto-generated method stub
+	
+	/**
+	 * @return pre-order traversal of tree
+	 */
+	public Iterator<T> preorder(){
+		//TODO
 		return null;
 	}
-
-	@Override
-	public T getMaximum() {
-		// TODO Auto-generated method stub
+	
+	/**
+	 * @return post-order traversal of tree
+	 */
+	public Iterator<T> postorder(){
+		//TODO
 		return null;
 	}
-
-	@Override
-	public int height() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public Iterator<T> preorderIterator() {
-		// TODO Auto-generated method stub
+	
+	/**
+	 * @param parent
+	 * @return left child of parent, or null if there is no left child
+	 */
+	public BSTNode<T> leftChild(BSTNode<T> parent){
+		//TODO
 		return null;
 	}
-
-	@Override
-	public Iterator<T> inorderIterator() {
-		// TODO Auto-generated method stub
+	
+	/**
+	 * @param parent
+	 * @return right child of parent, or null if there is no right child
+	 */
+	public BSTNode<T> rightChild(BSTNode<T> parent){
+		//TODO
 		return null;
 	}
-
-	@Override
-	public Iterator<T> postorderIterator() {
-		// TODO Auto-generated method stub
-		return null;
+	
+	/**
+	 * @param child
+	 * @return child's parent node
+	 */
+	public BSTNode<T> predecessor(BSTNode<T> child){
+		return child.getParent();
 	}
-
-	@Override
-	public boolean equals(BSTInterface<T> other) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean sameValues(BSTInterface<T> other) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean isBalanced() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public void balance() {
-		// TODO Auto-generated method stub
-		
-	}
+	
 	
 }
-	
