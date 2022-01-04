@@ -11,6 +11,7 @@ public class BSTNode<T>{
 	private BSTNode<T> right;
 	private BSTNode<T> parent;
 
+
 	public BSTNode(T data, BSTNode<T> left, BSTNode<T> right) {
 		this.data = data;
 		setLeft(left);

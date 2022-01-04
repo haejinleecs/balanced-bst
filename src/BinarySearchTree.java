@@ -12,18 +12,11 @@ public abstract class BinarySearchTree<T extends Comparable<T>> {
 	BSTNode<T> root;
 	
 	/**
-	 * @param value
-	 * @return new tree with given root value
-	 */
-	public BSTNode<T> create(T value){
-		return new BSTNode<T>(value, null, null);
-	}
-	
-	/**
+	 * inserts data into this BST
 	 * @param node
-	 * @return root of the new tree with inserted node
+	 * @return true if data is inserted; false if data is a duplicate
 	 */
-	public abstract BSTNode<T> insert(BSTNode<T> node);
+	public abstract boolean insert(T data);
 	
 	/**
 	 * @param node
@@ -35,7 +28,7 @@ public abstract class BinarySearchTree<T extends Comparable<T>> {
 	 * @param node
 	 * @return true if node is contained in this tree
 	 */
-	public boolean search(BSTNode<T> node){
+	public boolean search(T data){
 		//TODO
 		return false;
 	}
@@ -69,8 +62,7 @@ public abstract class BinarySearchTree<T extends Comparable<T>> {
 	 * @return left child of parent, or null if there is no left child
 	 */
 	public BSTNode<T> leftChild(BSTNode<T> parent){
-		//TODO
-		return null;
+		return parent.getLeft();
 	}
 	
 	/**
@@ -78,8 +70,7 @@ public abstract class BinarySearchTree<T extends Comparable<T>> {
 	 * @return right child of parent, or null if there is no right child
 	 */
 	public BSTNode<T> rightChild(BSTNode<T> parent){
-		//TODO
-		return null;
+		return parent.getRight();
 	}
 	
 	/**
