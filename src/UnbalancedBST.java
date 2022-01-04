@@ -13,6 +13,7 @@ public class UnbalancedBST<T extends Comparable<T>> extends BinarySearchTree<T>{
 
 	@Override
 	public boolean insert(T data) {
+		if(data == null) throw new NullPointerException();
 		if(search(data)) return false; // return false for duplicate data
 		if(root == null) this.root = new BSTNode<T>(data, null, null); // if tree is empty, insertion at root 
 		insertHelper(root, data); // call helper method
@@ -34,7 +35,8 @@ public class UnbalancedBST<T extends Comparable<T>> extends BinarySearchTree<T>{
 
 	@Override
 	public boolean delete(T data) {
-		// TODO Auto-generated method stub
+		if(data == null) throw new NullPointerException();
+		
 		return false;
 	}
 	
