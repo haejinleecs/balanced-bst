@@ -29,8 +29,15 @@ public abstract class BinarySearchTree<T extends Comparable<T>> {
 	 * @return true if node is contained in this tree
 	 */
 	public boolean search(T data){
-		//TODO
-		return false;
+		return searchHelper(root, data);
+	}
+	protected boolean searchHelper(BSTNode<T> cur, T data) {
+		int result = data.compareTo(cur.getData()); // compare data value to cur's value
+		if(result > 0) // data value > cur's value
+			return searchHelper(cur.getRight(), data);
+		if(result < 0) // data value < cur's value
+			return searchHelper(cur.getLeft(), data);
+		return true; // data value = cur's value
 	}
 	
 	/**
