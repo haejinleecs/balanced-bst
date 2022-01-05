@@ -14,23 +14,18 @@ public class UnbalancedBST<T extends Comparable<T>> extends BinarySearchTree<T>{
 	@Override
 	public boolean insert(T data) {
 		if(data == null) throw new NullPointerException();
-		if(search(data) != null) return false; // returns false for duplicate data
-		if(root == null) this.root = new BSTNode<T>(data, null, null); // if tree is empty, insert new node as root
-		insertHelper(root, data); // calls helper method
+		if(search(data) != null) return false; // returns false for duplicate data	
+		root = insertHelper(root, new BSTNode<T> (data, null, null)); // calls helper method
 		return true;
 	}
-	private void insertHelper(BSTNode<T> cur, T data){ // helper method for insert
-		int result = data.compareTo(cur.getData()); // compare data value to cur's value
-		if(result > 0) { // if the data value is greater than cur's value
-			if(cur.getRight() == null) // found correct spot
-				cur.setRight(new BSTNode<T>(data, null, null)); // insert new node as current node's right child
-			else insertHelper(cur.getRight(), data); // recursive move into right child
-		}
-		if(result < 0) { // if the data value is less than cur's value
-			if(cur.getLeft() == null) // found correct spot
-				cur.setLeft(new BSTNode<T>(data, null, null)); // insert new node as current node's left child
-			else insertHelper(cur.getLeft(), data); // recursive move into left child
-		}
+	private BSTNode<T> insertHelper(BSTNode<T> cur, BSTNode<T> add){ // helper method for insert
+		if(cur == null) return add; // found the right spot so returns node to add (to set the links)
+		int result = add.getData().compareTo(cur.getData()); // compare node to add's value to cur's value
+		if(result > 0) // if add's value is greater than cur's value
+			cur.setRight(insertHelper(cur.getRight(), add)); // set cur's right as updated right subtree
+		if(result < 0) // if the data value is less than cur's value
+			cur.setLeft(insertHelper(cur.getLeft(), add)); // set cur's left as updated left subtree
+		return cur; // returns new root after insertion is complete
 	}
 
 	@Override
