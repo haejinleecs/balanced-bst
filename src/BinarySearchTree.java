@@ -32,7 +32,7 @@ public abstract class BinarySearchTree<T extends Comparable<T>> {
 	
 	/**
 	 * @param node
-	 * @return true if node is contained in this tree
+	 * @return node with data value if it is found and null if it isn't found
 	 * @throws NullPointerException if data is null
 	 */
 	public BSTNode<T> search(T data){
