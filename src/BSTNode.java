@@ -11,12 +11,28 @@ public class BSTNode<T>{
 	private BSTNode<T> right;
 	private BSTNode<T> parent;
 
-
+	/**
+	 * Constructor method
+	 * @param data
+	 */
+	public BSTNode(T data) {
+		setData(data);
+		setLeft(null);
+		setRight(null);
+		setParent(null);
+	}
+	
+	/**
+	 * Constructor method
+	 * @param data
+	 * @param left
+	 * @param right
+	 */
 	public BSTNode(T data, BSTNode<T> left, BSTNode<T> right) {
-		this.data = data;
+		setData(data);
 		setLeft(left);
 		setRight(right);
-		this.parent = null;
+		setParent(null);
 	}
 
 	public T getData() {

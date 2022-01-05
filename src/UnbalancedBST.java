@@ -15,7 +15,7 @@ public class UnbalancedBST<T extends Comparable<T>> extends BinarySearchTree<T>{
 	public boolean insert(T data) {
 		if(data == null) throw new NullPointerException();
 		if(search(data)) return false; // returns false for duplicate data	
-		root = insertHelper(root, new BSTNode<T> (data, null, null)); // calls helper method
+		root = insertHelper(root, new BSTNode<T> (data)); // calls helper method
 		return true;
 	}
 	private BSTNode<T> insertHelper(BSTNode<T> cur, BSTNode<T> add){ // helper method for insert
@@ -35,7 +35,7 @@ public class UnbalancedBST<T extends Comparable<T>> extends BinarySearchTree<T>{
 		root = deleteSubtree(root, data);
 		return true; // returns true after successful deletion
 	}
-	private BSTNode<T> deleteSubtree(BSTNode<T> cur, T data) {
+	private BSTNode<T> deleteSubtree(BSTNode<T> cur, T data) { // helper for delete()
 		// node must not be null
 		int result = data.compareTo(cur.getData()); // compares data value to cur's value
 		if (result < 0) { // if data value < cur's value
@@ -61,11 +61,11 @@ public class UnbalancedBST<T extends Comparable<T>> extends BinarySearchTree<T>{
 			}
 		}
 	}
-	private T getHighestValue(BSTNode<T> cur) {
+	private T getHighestValue(BSTNode<T> cur) { // helper for delete()
 		if(cur.getRight() != null) return getHighestValue(cur.getRight()); // if current node has right subtree, recurse into right subtree
 		return cur.getData(); // else returns cur's value
 	}
-	private BSTNode<T> removeRightmost(BSTNode<T> cur) {
+	private BSTNode<T> removeRightmost(BSTNode<T> cur) { // helper for delete()
 		if (cur.getRight() == null) { // if current node has no right subtree
 			return cur.getLeft(); // return left subtree which will replace the removed node or null if there is no left subtree
 		} else { // if current node has a right subtree
