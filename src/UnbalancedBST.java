@@ -37,21 +37,47 @@ public class UnbalancedBST<T extends Comparable<T>> extends BinarySearchTree<T>{
 	public boolean delete(T data) {
 		if(data == null) throw new NullPointerException();
 		if(search(data) == null) return false; // returns false if the node to delete isn't in the tree
-		root = deleteHelper(root, data);
+		root = deleteSubtree(root, data);
 		return true; // returns true after successful deletion
 	}
-	private BSTNode<T> deleteHelper(BSTNode<T> cur, T data) {
-		int result = data.compareTo(cur.getData()); // compare data value to cur's value
-		if(result > 0) // if data value > cur's value
-			return deleteHelper(cur.getRight(), data); // recurses into right subtree
-		if(result < 0) // if data value < cur's value
-			return deleteHelper(cur.getLeft(), data); // recurses into left subtree
-		// if cur value = data value, proceed with deletion
-		
+	private BSTNode<T> deleteSubtree(BSTNode<T> cur, T data) {
+		// node must not be null
+		int result = data.compareTo(cur.getData()); // compares data value to cur's value
+		if (result < 0) { // if data value < cur's value
+			cur.setLeft(deleteSubtree(cur.getLeft(), data)); // sets current node's left subtree as the subtree with the node removed
+			return cur; // returns subtree's root
+		} 
+		else if (result > 0) { // if data value > cur's value
+			cur.setRight(deleteSubtree(cur.getRight(), data)); // sets current node's right subtree as the subtree with the node removed
+			return cur; // returns subtree's root
+		} 
+		else { // if data value = cur's value; proceed with deletion process
+			if (cur.getLeft() == null) { // if the left subtree is empty
+				return cur.getRight(); // returns cur's right child
+			} 
+			else if (cur.getRight() == null) { // if the right subtree is empty
+				return cur.getLeft(); // returns cur's left child
+			} 
+			else { // if neither child subtrees is empty
+				T predecessorValue = getHighestValue(cur.getLeft()); // finds the predecessor of cur (highest value node in left subtree)
+				cur.setLeft(removeRightmost(cur.getLeft())); // removes highest value node from cur's left subtree
+				cur.setData(predecessorValue); // replaces cur's value with its predecessor's value
+				return cur; // returns root of tree with deletion done
+			}
+		}
 	}
-	
-	
-	
-	
-	
+	private T getHighestValue(BSTNode<T> cur) {
+		if(cur.getRight() != null) return getHighestValue(cur.getRight()); // if current node has right subtree, recurse into right subtree
+		return cur.getData(); // else returns cur's value
+	}
+	private BSTNode<T> removeRightmost(BSTNode<T> cur) {
+		if (cur.getRight() == null) { // if current node has no right subtree
+			return cur.getLeft(); // return left subtree which will replace the removed node or null if there is no left subtree
+		} else { // if current node has a right subtree
+			cur.setRight(removeRightmost(cur.getRight())); // recurses into cur's right subtree and updates cur's right subtree
+			return cur; // returns current root
+		}
+	}
+
 }
+	
