@@ -36,10 +36,18 @@ public class UnbalancedBST<T extends Comparable<T>> extends BinarySearchTree<T>{
 	@Override
 	public boolean delete(T data) {
 		if(data == null) throw new NullPointerException();
-		BSTNode<T> delete = search(data); // save node to delete
-		if(delete == null) return false; // returns false if the node to delete isn't in the tree
-		
+		if(search(data) == null) return false; // returns false if the node to delete isn't in the tree
+		root = deleteHelper(root, data);
 		return true; // returns true after successful deletion
+	}
+	private BSTNode<T> deleteHelper(BSTNode<T> cur, T data) {
+		int result = data.compareTo(cur.getData()); // compare data value to cur's value
+		if(result > 0) // if data value > cur's value
+			return deleteHelper(cur.getRight(), data); // recurses into right subtree
+		if(result < 0) // if data value < cur's value
+			return deleteHelper(cur.getLeft(), data); // recurses into left subtree
+		// if cur value = data value, proceed with deletion
+		
 	}
 	
 	

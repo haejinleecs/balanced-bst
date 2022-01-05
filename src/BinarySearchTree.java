@@ -42,10 +42,10 @@ public abstract class BinarySearchTree<T extends Comparable<T>> {
 	private BSTNode<T> searchHelper(BSTNode<T> cur, T data) {
 		if(cur == null) return null; // returns null if there is no node with same data value
 		int result = data.compareTo(cur.getData()); // compare data value to cur's value
-		if(result > 0) // data value > cur's value
-			return searchHelper(cur.getRight(), data);
-		if(result < 0) // data value < cur's value
-			return searchHelper(cur.getLeft(), data);
+		if(result > 0) // if data value > cur's value
+			return searchHelper(cur.getRight(), data); // recurses into right subtree
+		if(result < 0) // if data value < cur's value
+			return searchHelper(cur.getLeft(), data); // recurses into left subtree
 		return cur; // data value = cur's value, return current node
 	}
 	
