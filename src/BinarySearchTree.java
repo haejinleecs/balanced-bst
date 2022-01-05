@@ -32,21 +32,21 @@ public abstract class BinarySearchTree<T extends Comparable<T>> {
 	
 	/**
 	 * @param node
-	 * @return node with data value if it is found and null if it isn't found
+	 * @return true if it is found and false if it isn't found
 	 * @throws NullPointerException if data is null
 	 */
-	public BSTNode<T> search(T data){
+	public boolean search(T data){
 		if(data == null) throw new NullPointerException();
 		return searchHelper(root, data);
 	}
-	private BSTNode<T> searchHelper(BSTNode<T> cur, T data) {
-		if(cur == null) return null; // returns null if there is no node with same data value
+	private boolean searchHelper(BSTNode<T> cur, T data) {
+		if(cur == null) return false; // returns null if there is no node with same data value
 		int result = data.compareTo(cur.getData()); // compare data value to cur's value
 		if(result > 0) // if data value > cur's value
 			return searchHelper(cur.getRight(), data); // recurses into right subtree
 		if(result < 0) // if data value < cur's value
 			return searchHelper(cur.getLeft(), data); // recurses into left subtree
-		return cur; // data value = cur's value, return current node
+		return true; // data value = cur's value, return true
 	}
 	
 	/**
