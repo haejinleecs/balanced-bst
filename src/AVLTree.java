@@ -65,14 +65,38 @@ public class AVLTree<T extends Comparable<T>> extends BinarySearchTree<T>{
 		return cur.getLeft().getHeight() - cur.getRight().getHeight();
 	}
 	
-	public AVLNode<T> rightRotate(AVLNode<T> cur){
-		//TODO
+	public AVLNode<T> rightRotate(AVLNode<T> z){
+		if(z == null) throw new NullPointerException();
 		
-		return null;
+		AVLNode<T> y = z.getLeft(); // z's right child y will be the new root of this subtree
+		AVLNode<T> yRight = y.getRight(); // save y's right subtree for setting links
+
+		// set new links
+		y.setRight(z); // set z as right child of y
+		z.setLeft(yRight); // set y's saved right subtree as z's left subtree
+		
+		// update heights
+		z.setHeight(Math.max(z.getLeft().getHeight(), z.getRight().getHeight()) + 1); // set z's new height first
+		y.setHeight(Math.max(y.getLeft().getHeight(), y.getRight().getHeight()) + 1); // set y's height (root height)
+		
+		return y;
 	}
-	public AVLNode<T> leftRotate(AVLNode<T> cur){
-		//TODO
-		return null;
+	
+	public AVLNode<T> leftRotate(AVLNode<T> z){
+		if(z == null) throw new NullPointerException();
+		
+		AVLNode<T> y = z.getRight(); // z's right child y will be the new root of this subtree
+		AVLNode<T> yLeft = y.getLeft(); // save y's right subtree for setting links
+
+		// set new links
+		y.setLeft(z); // set z as left child of y
+		z.setRight(yLeft); // set y's saved left subtree as z's right subtree
+		
+		// update heights
+		z.setHeight(Math.max(z.getLeft().getHeight(), z.getRight().getHeight()) + 1); // set z's new height first
+		y.setHeight(Math.max(y.getLeft().getHeight(), y.getRight().getHeight()) + 1); // set y's height (root height)
+		
+		return y;
 	}
 	
 	@Override
