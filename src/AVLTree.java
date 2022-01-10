@@ -10,14 +10,26 @@ public class AVLTree<T extends Comparable<T>> extends BinarySearchTree<T>{
 	private AVLNode<T> root;
 	
 	public AVLTree() {
-		this.root = (AVLNode<T>)super.root;
+		this.setRoot((AVLNode<T>)super.root);
+	}
+
+	public AVLNode<T> getRoot() {
+		return root;
 	}
 	
+	public void setRoot(AVLNode<T> root){
+		this.root = root;
+	}
+	
+	public int height(AVLNode<T> node) {
+		if(node == null) return 0;
+		return node.getHeight();
+	}
 
 	public boolean insert(T data) {
 		if(data == null) throw new NullPointerException();
 		if(search(data)) return false; // returns false for duplicate data	
-		root = insertHelper(root, new AVLNode<T>(data)); // call helper
+		setRoot(insertHelper(getRoot(), new AVLNode<T>(data))); // call helper
 		return true;
 	}
 	private AVLNode<T> insertHelper(AVLNode<T> cur, AVLNode<T> add){ // helper method for insert
@@ -29,7 +41,7 @@ public class AVLTree<T extends Comparable<T>> extends BinarySearchTree<T>{
 			cur.setLeft(insertHelper(cur.getLeft(), add)); // set cur's left as updated left subtree
 		
 		// update height of nodes
-		cur.setHeight(Math.max(cur.getLeft().getHeight(), cur.getRight().getHeight()) + 1); 
+		cur.setHeight(Math.max(height(cur.getLeft()), height(cur.getRight())) + 1); 
 		
 		// obtain the balance factor of the tree
 		int balance = getBalance(cur);
@@ -76,8 +88,8 @@ public class AVLTree<T extends Comparable<T>> extends BinarySearchTree<T>{
 		z.setLeft(yRight); // set y's saved right subtree as z's left subtree
 		
 		// update heights
-		z.setHeight(Math.max(z.getLeft().getHeight(), z.getRight().getHeight()) + 1); // set z's new height first
-		y.setHeight(Math.max(y.getLeft().getHeight(), y.getRight().getHeight()) + 1); // set y's height (root height)
+		z.setHeight(Math.max(height(z.getLeft()), height(z.getRight())) + 1); // set z's new height first
+		y.setHeight(Math.max(height(y.getLeft()), height(y.getRight())) + 1); // set y's height (root height)
 		
 		return y;
 	}
@@ -93,16 +105,17 @@ public class AVLTree<T extends Comparable<T>> extends BinarySearchTree<T>{
 		z.setRight(yLeft); // set y's saved left subtree as z's right subtree
 		
 		// update heights
-		z.setHeight(Math.max(z.getLeft().getHeight(), z.getRight().getHeight()) + 1); // set z's new height first
-		y.setHeight(Math.max(y.getLeft().getHeight(), y.getRight().getHeight()) + 1); // set y's height (root height)
+		z.setHeight(Math.max(height(z.getLeft()), height(z.getRight())) + 1); // set z's new height first
+		y.setHeight(Math.max(height(y.getLeft()), height(y.getRight())) + 1); // set y's height (root height)
 		
 		return y;
 	}
 	
 	@Override
 	public boolean delete(T data) {
-		// TODO Auto-generated method stub
+		//TODO
 		return false;
 	}
+
 	
 }

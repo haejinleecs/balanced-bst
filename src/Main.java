@@ -33,5 +33,22 @@ public class Main{
 		System.out.println("b is in the tree? " +tree.search("b")); // should return true
 		
 		
+		
+		// test AVL Tree
+		
+		// create tree
+		AVLTree<String> tree2 = new AVLTree<String>();
+		
+		// add elements
+		for (String i : new String[] { "a", "b", "c", "d", "e", "f", "g" }) tree2.insert(i);
+		System.out.println("Added a, b, c, d, e, f, g to tree");
+		
+		// traversal
+		System.out.println("In-order traversal:");
+		tree.printTree(tree2.inorder());
+		
+		// check balance
+		System.out.println("The balance factor of tree2 is: "+tree2.getBalance(tree2.getRoot()));
+		
 	}
 }

@@ -103,7 +103,7 @@ public abstract class BinarySearchTree<T extends Comparable<T>> {
 	 * @throws NullPointerException if parent is null
 	 */
 	public BSTNode<T> leftChild(BSTNode<T> parent){
-		if(parent == null) throw new NullPointerException();
+//		if(parent == null) throw new NullPointerException();
 		return parent.getLeft();
 	}
 	
@@ -113,7 +113,7 @@ public abstract class BinarySearchTree<T extends Comparable<T>> {
 	 * @throws NullPointerException if parent is null
 	 */
 	public BSTNode<T> rightChild(BSTNode<T> parent){
-		if(parent == null) throw new NullPointerException();
+//		if(parent == null) throw new NullPointerException();
 		return parent.getRight();
 	}
 	
