@@ -2,7 +2,7 @@ import java.util.Iterator;
 
 public class Main{
 	public static void main(String args[]) {
-		// test BST methods
+		// test BST methods on unbalanced tree
 		
 		// create tree and add elements
 		UnbalancedBST<String> tree = new UnbalancedBST<String>(); 
@@ -13,30 +13,20 @@ public class Main{
 		Iterator<String> inorderIter = tree.inorder();
 		Iterator<String> preorderIter = tree.preorder();
 		Iterator<String> postorderIter = tree.postorder();
+		
 		System.out.println("In-order Traversal:");
-		while(inorderIter.hasNext()) {
-			System.out.print(inorderIter.next());
-		}
-		System.out.println();
+		tree.printTree(inorderIter);
+		
 		System.out.println("Pre-order Traversal:");
-		while(preorderIter.hasNext()) {
-			System.out.print(preorderIter.next());
-		}
-		System.out.println();
+		tree.printTree(preorderIter);
+
 		System.out.println("Post-order Traversal:");
-		while(postorderIter.hasNext()) {
-			System.out.print(postorderIter.next());
-		}
-		System.out.println();
+		tree.printTree(postorderIter);
 		
 		// test delete method
 		tree.delete("a");
 		System.out.println("Removed a"); 
-		inorderIter = tree.inorder();
-		while(inorderIter.hasNext()) {
-			System.out.print(inorderIter.next());
-		}
-		System.out.println();
+		tree.printTree(tree.inorder());
 		
 		// test search
 		System.out.println("a is in the tree? " +tree.search("a")); // should return false

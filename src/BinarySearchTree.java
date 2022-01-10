@@ -126,6 +126,14 @@ public abstract class BinarySearchTree<T extends Comparable<T>> {
 		if(child == null) throw new NullPointerException();
 		return child.getParent();
 	}
+	/**
+	 * prints tree
+	 * @param iterator
+	 */
+	public void printTree(Iterator<T> iterator) {
+		while(iterator.hasNext()) System.out.print(iterator.next());
+		System.out.println();
+	}
 	
 	
 }
