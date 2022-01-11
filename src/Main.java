@@ -45,7 +45,11 @@ public class Main{
 			// check balance
 			System.out.println("Added "+i+" to tree");
 			System.out.println("The balance factor of tree2 is: "+tree2.getBalance(tree2.getRoot()));
+			System.out.println("In-order Traversal:");
+			tree.printTree(tree2.inorder());
 		}
+
+		System.out.println();
 
 		// delete elements
 		for (String i : new String[] { "a", "b", "c", "d", "e", "f", "g" }) {
@@ -55,6 +59,8 @@ public class Main{
 				System.out.println("Could not delete " +i+" from tree.");
 			// check balance
 			System.out.println("The balance factor of tree2 is: "+tree2.getBalance(tree2.getRoot()));
+			System.out.println("In-order Traversal:");
+			tree.printTree(tree2.inorder());
 		}
 		
 	}
