@@ -74,7 +74,7 @@ public class AVLTree<T extends Comparable<T>> extends BinarySearchTree<T>{
 	
 	public int getBalance(AVLNode<T> cur) {
 		if(cur == null) return 0;
-		return cur.getLeft().getHeight() - cur.getRight().getHeight();
+		return height(cur.getLeft()) - height(cur.getRight());
 	}
 	
 	public AVLNode<T> rightRotate(AVLNode<T> z){
@@ -115,6 +115,7 @@ public class AVLTree<T extends Comparable<T>> extends BinarySearchTree<T>{
 	public boolean delete(T data) {
 		//TODO
 		return false;
+		
 	}
 
 	
