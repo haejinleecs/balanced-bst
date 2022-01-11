@@ -44,8 +44,10 @@ public class Main{
 		System.out.println("Added a, b, c, d, e, f, g to tree");
 		
 		// traversal
+		// TODO: Fix this SHIT
+		inorderIter = tree2.inorder();
 		System.out.println("In-order traversal:");
-		tree.printTree(tree2.inorder());
+		tree.printTree(inorderIter); 
 		
 		// check balance
 		System.out.println("The balance factor of tree2 is: "+tree2.getBalance(tree2.getRoot()));
