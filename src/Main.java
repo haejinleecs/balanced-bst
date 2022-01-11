@@ -40,17 +40,22 @@ public class Main{
 		AVLTree<String> tree2 = new AVLTree<String>();
 		
 		// add elements
-		for (String i : new String[] { "a", "b", "c", "d", "e", "f", "g" }) tree2.insert(i);
-		System.out.println("Added a, b, c, d, e, f, g to tree");
-		
-		// traversal
-		// TODO: Fix this SHIT
-		inorderIter = tree2.inorder();
-		System.out.println("In-order traversal:");
-		tree.printTree(inorderIter); 
-		
-		// check balance
-		System.out.println("The balance factor of tree2 is: "+tree2.getBalance(tree2.getRoot()));
+		for (String i : new String[] { "a", "b", "c", "d", "e", "f", "g" }) {
+			tree2.insert(i);
+			// check balance
+			System.out.println("Added "+i+" to tree");
+			System.out.println("The balance factor of tree2 is: "+tree2.getBalance(tree2.getRoot()));
+		}
+
+		// delete elements
+		for (String i : new String[] { "a", "b", "c", "d", "e", "f", "g" }) {
+			if(tree2.delete(i))
+				System.out.println("Deleted "+i+" from tree");
+			else
+				System.out.println("Could not delete " +i+" from tree.");
+			// check balance
+			System.out.println("The balance factor of tree2 is: "+tree2.getBalance(tree2.getRoot()));
+		}
 		
 	}
 }

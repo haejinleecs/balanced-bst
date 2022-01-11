@@ -7,20 +7,23 @@
  */
 public class AVLTree<T extends Comparable<T>> extends BinarySearchTree<T>{
 	
-	private AVLNode<T> root;
 	
 	public AVLTree() {
 		this.setRoot((AVLNode<T>)super.root);
 	}
 
 	public AVLNode<T> getRoot() {
-		return root;
+		return (AVLNode<T>)root;
 	}
 	
 	public void setRoot(AVLNode<T> root){
 		this.root = root;
 	}
 	
+	/**
+	 * @param node
+	 * @return the height of the node
+	 */
 	public int height(AVLNode<T> node) {
 		if(node == null) return 0;
 		return node.getHeight();
@@ -43,40 +46,23 @@ public class AVLTree<T extends Comparable<T>> extends BinarySearchTree<T>{
 		// update height of nodes
 		cur.setHeight(Math.max(height(cur.getLeft()), height(cur.getRight())) + 1); 
 		
-		// obtain the balance factor of the tree
-		int balance = getBalance(cur);
-		
-		
-		// 1. right right case
-		if(balance < -1 && (cur.getRight().getData().compareTo(add.getData()) < 0)) { // added node is on right right
-			return leftRotate(cur); // left rotate whole tree
-		}
-		
-		// 2. right left case
-		if(balance < -1 && (cur.getRight().getData().compareTo(add.getData()) > 0)) { // added node is on right left
-			cur.setRight(rightRotate(cur.getRight())); // right rotate the right subtree to make it right right case
-			return leftRotate(cur); // then left rotate the whole tree
-		}
-		
-		// 3. left left case
-		if(balance > 1 && (cur.getLeft().getData().compareTo(add.getData()) > 0)) { // added node is on left left
-			return rightRotate(cur); // right rotate whole tree
-		}
-		
-		// 4. left right case
-		if(balance > 1 && (cur.getLeft().getData().compareTo(add.getData()) < 0)) { // added node is on left right
-			cur.setLeft(leftRotate(cur.getLeft())); // left rotate the left subtree to make it left left case
-			return rightRotate(cur); // right rotate whole tree
-		}
-				
-		return cur; // returns new root after insertion and re-balancing is complete
+		// balance the tree
+		return balance(cur); // returns new root after insertion and re-balancing is complete
 	}
 	
+	/**
+	 * @param cur
+	 * @return balance factor of tree rooted at cur
+	 */
 	public int getBalance(AVLNode<T> cur) {
 		if(cur == null) return 0;
 		return height(cur.getLeft()) - height(cur.getRight());
 	}
-	
+
+	/**
+	 * @param z
+	 * @return the tree after right-rotation
+	 */
 	public AVLNode<T> rightRotate(AVLNode<T> z){
 		if(z == null) throw new NullPointerException();
 		
@@ -94,6 +80,10 @@ public class AVLTree<T extends Comparable<T>> extends BinarySearchTree<T>{
 		return y;
 	}
 	
+	/**
+	 * @param z
+	 * @return the tree after left-rotation
+	 */
 	public AVLNode<T> leftRotate(AVLNode<T> z){
 		if(z == null) throw new NullPointerException();
 		
@@ -111,12 +101,81 @@ public class AVLTree<T extends Comparable<T>> extends BinarySearchTree<T>{
 		return y;
 	}
 	
-	@Override
-	public boolean delete(T data) {
-		//TODO
-		return false;
+	/**
+	 * @param cur
+	 * @return the subtree at cur after balancing
+	 */
+	public AVLNode<T> balance(AVLNode<T> cur){
+		// obtain the balance factor of the tree
+		int balance = getBalance(cur);
 		
+		// 1. right right case
+		if(balance < -1 && (getBalance(cur.getRight()) <= 0)) { // added node is on right right
+			return leftRotate(cur); // left rotate whole tree
+		}
+		
+		// 2. right left case
+		if(balance < -1 && (getBalance(cur.getRight()) > 0)) { // added node is on right left
+			cur.setRight(rightRotate(cur.getRight())); // right rotate the right subtree to make it right right case
+			return leftRotate(cur); // then left rotate the whole tree
+		}
+		
+		// 3. left left case
+		if(balance > 1 && (getBalance(cur.getLeft()) >= 0)) { // added node is on left left
+			return rightRotate(cur); // right rotate whole tree
+		}
+		
+		// 4. left right case
+		if(balance > 1 && (getBalance(cur.getLeft()) < 0)) { // added node is on left right
+			cur.setLeft(leftRotate(cur.getLeft())); // left rotate the left subtree to make it left left case
+			return rightRotate(cur); // right rotate whole tree
+		}
+		return cur;
 	}
+	
+	public boolean delete(T data) {
+		if(data == null) throw new NullPointerException();
+		if(!super.search(data)) return false; // returns false if the node to delete isn't in the tree
+		root = deleteSubtree((AVLNode<T>)root, data);
+		return true; // returns true after successful deletion
+	}
+	private AVLNode<T> deleteSubtree(AVLNode<T> cur, T data) { // helper for delete()
+		// node must not be null
+		int result = data.compareTo(cur.getData()); // compares data value to cur's value
+		if (result < 0) { // if data value < cur's value
+			cur.setLeft(deleteSubtree(cur.getLeft(), data)); // sets current node's left subtree as the subtree with the node removed
+		} 
+		else if (result > 0) { // if data value > cur's value
+			cur.setRight(deleteSubtree(cur.getRight(), data)); // sets current node's right subtree as the subtree with the node removed
+		} 
+		else { // if data value = cur's value; proceed with deletion process
+			if (cur.getLeft() == null) // if the left subtree is empty
+				return cur.getRight(); // new root is cur's right child
+			if (cur.getRight() == null) // if the right subtree is empty
+				return cur.getLeft(); // new root is cur's left child
+			else {// if neither child subtrees is empty
+				T predecessorValue = getHighestValue(cur.getLeft()); // finds the predecessor of cur (highest value node in left subtree)
+				cur.setLeft(removeRightmost(cur.getLeft())); // removes highest value node from cur's left subtree
+				cur.setData(predecessorValue); // replaces cur's value with its predecessor's value
+			}
+		}
+		// update height of nodes
+		cur.setHeight(Math.max(height(cur.getLeft()), height(cur.getRight())) + 1); 
 
+		// balance the tree
+		return balance(cur); // returns new root after insertion and re-balancing is complete
+	}
+	private T getHighestValue(AVLNode<T> cur) { // helper for delete()
+		if(cur.getRight() != null) return getHighestValue(cur.getRight()); // if current node has right subtree, recurse into right subtree
+		return cur.getData(); // else returns cur's value
+	}
+	private AVLNode<T> removeRightmost(AVLNode<T> cur) { // helper for delete()
+		if (cur.getRight() == null) { // if current node has no right subtree
+			return cur.getLeft(); // return left subtree which will replace the removed node or null if there is no left subtree
+		} else { // if current node has a right subtree
+			cur.setRight(removeRightmost(cur.getRight())); // recurses into cur's right subtree and updates cur's right subtree
+			return cur; // returns current root
+		}
+	}
 	
 }
