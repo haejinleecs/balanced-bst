@@ -28,7 +28,8 @@ public class AVLTree<T extends Comparable<T>> extends BinarySearchTree<T>{
 		if(node == null) return 0;
 		return node.getHeight();
 	}
-
+	
+	@Override
 	public boolean insert(T data) {
 		if(data == null) throw new NullPointerException();
 		if(search(data)) return false; // returns false for duplicate data	
@@ -133,6 +134,7 @@ public class AVLTree<T extends Comparable<T>> extends BinarySearchTree<T>{
 		return cur;
 	}
 	
+	@Override
 	public boolean delete(T data) {
 		if(data == null) throw new NullPointerException();
 		if(!super.search(data)) return false; // returns false if the node to delete isn't in the tree
