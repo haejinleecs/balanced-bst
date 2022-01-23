@@ -4,6 +4,8 @@ public class Main{
 	public static void main(String args[]) {
 		// test BST methods on unbalanced tree
 		
+		System.out.println("BST Tests:");
+		System.out.println();
 		// create tree and add elements
 		UnbalancedBST<String> tree = new UnbalancedBST<String>(); 
 		for (String i : new String[] { "a", "b", "c", "d", "e", "f", "g" }) tree.insert(i);
@@ -33,8 +35,10 @@ public class Main{
 		System.out.println("b is in the tree? " +tree.search("b")); // should return true
 		
 		
-		
+		System.out.println();
 		// test AVL Tree
+		System.out.println("AVL Tree Test:");
+		System.out.println();
 		
 		// create tree
 		AVLTree<String> tree2 = new AVLTree<String>();

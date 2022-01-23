@@ -72,6 +72,7 @@ public class AVLTree<T extends Comparable<T>> extends BinarySearchTree<T>{
 
 		// set new links
 		y.setRight(z); // set z as right child of y
+		y.setParent(null); // set z's parent as y
 		z.setLeft(yRight); // set y's saved right subtree as z's left subtree
 		
 		// update heights
@@ -93,6 +94,7 @@ public class AVLTree<T extends Comparable<T>> extends BinarySearchTree<T>{
 
 		// set new links
 		y.setLeft(z); // set z as left child of y
+		y.setParent(null); // set z's parent null
 		z.setRight(yLeft); // set y's saved left subtree as z's right subtree
 		
 		// update heights
